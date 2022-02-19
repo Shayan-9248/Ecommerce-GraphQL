@@ -19,10 +19,9 @@ class ProductAdmin(admin.ModelAdmin):
         "created",
         "updated",
         "sell",
-        "image_thumbnail",
         "id",
     )
-    list_display_links = ("__str__", "image_thumbnail")
+    list_display_links = ("__str__",)
     list_filter = ("available",)
     search_fields = ("title", "description")
     date_hierarchy = "created"

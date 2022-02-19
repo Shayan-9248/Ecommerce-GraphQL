@@ -33,6 +33,7 @@ class Category(TimeStamp):
 
 class Product(TimeStamp):
     title = models.CharField(max_length=50, blank=True, null=True)
+    description = models.TextField()
     slug = models.SlugField(null=True, blank=True, unique=True)
     available = models.BooleanField(default=True)
     unit_price = models.DecimalField(max_digits=6, decimal_places=2)
