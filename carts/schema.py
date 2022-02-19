@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 
 import graphene
 import graphene_django
@@ -16,12 +15,10 @@ class CartItemType(graphene_django.DjangoObjectType):
         model = CartItem
 
 
-# class CartQuery(graphene.ObjectType):
-#     carts = graphene.List(CartType)
-#     cart = graphene.Field(CartType)
-
-#     def resolve_carts(root, info, **kwargs):
-#         return Cart.objects.filter(user_id=root.request.user.id)
+class CartItemInput(graphene.InputObjectType):
+    quantity = graphene.Int()
+    product_id = graphene.ID()
+    cart_id = graphene.ID()
 
 
 class CreateCart(graphene.Mutation):
@@ -38,5 +35,24 @@ class CreateCart(graphene.Mutation):
         return CreateCart(cart=cart, ok=ok)
 
 
+class CreateCartItem(graphene.Mutation):
+    class Arguments:
+        cart_item_input = CartItemInput(required=True)
+    
+    ok = graphene.Boolean(default_value=True)
+    cart_item = graphene.Field(CartItemType)
+
+    def mutate(root, info, cart_item_input):
+        cart_item = CartItem(
+            cart_id=cart_item_input.cart_id,
+            product_id=cart_item_input.product_id,
+            quantity=cart_item_input.quantity
+        )
+        cart_item.save()
+        ok = True
+        return CreateCartItem(cart_item=cart_item, ok=ok)
+
+
 class Mutation(graphene.ObjectType):
     create_cart = CreateCart.Field()
+    create_cart_item = CreateCartItem.Field()
