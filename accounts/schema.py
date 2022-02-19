@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from graphql_jwt.decorators import staff_member_required
 
+from graphql_jwt.decorators import staff_member_required
 import graphene
 import graphene_django
 import graphql_jwt

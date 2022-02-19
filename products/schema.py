@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 
 import graphene
 import graphene_django
+from graphql_jwt.decorators import staff_member_required
 
 from .models import Product
 
@@ -38,6 +39,7 @@ class CreateProduct(graphene.Mutation):
     ok = graphene.Boolean(default_value=False)
     product = graphene.Field(ProductType)
 
+    @staff_member_required
     @staticmethod
     def mutate(root, info, product_input=None):
         product = Product(
@@ -60,6 +62,7 @@ class DeleteProduct(graphene.Mutation):
     ok = graphene.Boolean(default_value=False)
     product = graphene.Field(ProductType)
 
+    @staff_member_required
     def mutate(root, info, product_id):
         product = get_object_or_404(Product, pk=product_id)
         product.delete()
