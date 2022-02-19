@@ -5,11 +5,7 @@ from products import schema as product_schema
 from carts import schema as cart_schema
 
 
-class Query(
-    account_schema.UserQuery, 
-    product_schema.Query, 
-    graphene.ObjectType
-):
+class Query(account_schema.UserQuery, product_schema.Query, graphene.ObjectType):
     pass
 
 

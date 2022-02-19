@@ -1,4 +1,3 @@
-
 import graphene
 import graphene_django
 
@@ -38,7 +37,7 @@ class CreateCart(graphene.Mutation):
 class CreateCartItem(graphene.Mutation):
     class Arguments:
         cart_item_input = CartItemInput(required=True)
-    
+
     ok = graphene.Boolean(default_value=True)
     cart_item = graphene.Field(CartItemType)
 
@@ -46,7 +45,7 @@ class CreateCartItem(graphene.Mutation):
         cart_item = CartItem(
             cart_id=cart_item_input.cart_id,
             product_id=cart_item_input.product_id,
-            quantity=cart_item_input.quantity
+            quantity=cart_item_input.quantity,
         )
         cart_item.save()
         ok = True

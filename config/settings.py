@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "products.apps.ProductsConfig",
     "carts.apps.CartsConfig",
+    'orders.apps.OrdersConfig',
     # 3rd-party Apps
     "graphene_django",
 ]
