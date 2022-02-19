@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 
 import graphene
 import graphene_django
+import graphql_jwt
 
 User = get_user_model()
 
@@ -42,3 +43,10 @@ class CreateUser(graphene.Mutation):
         user.save()
         ok = True
         return CreateUser(user=user, ok=ok)
+
+
+class Mutation(graphene.Mutation):
+    create_user = CreateUser.Field()
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
