@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from graphql_jwt.decorators import staff_member_required
 
 import graphene
 import graphene_django
@@ -16,9 +17,14 @@ class UserType(graphene_django.DjangoObjectType):
 
 class UserQuery(graphene.ObjectType):
     user = graphene.Field(UserType, id=graphene.ID())
+    users = graphene.List(UserType)
 
     def resolve_user(root, info, **kwargs):
         return get_object_or_404(User, pk=kwargs.get("id"))
+    
+    @staff_member_required
+    def resolve_users(root, info, *kwargs):
+        return User.objects.all()    
 
 
 class UserInput(graphene.InputObjectType):
