@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #Local Apps
     "accounts.apps.AccountsConfig",
+    "products.apps.ProductsConfig",
 
     #3rd-party Apps
     "graphene_django",
