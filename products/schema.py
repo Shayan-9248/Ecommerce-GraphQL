@@ -18,7 +18,7 @@ class Query(graphene.ObjectType):
 
     def resolve_products(root, info, **kwargs):
         return Product.objects.filter(available=True)
-    
+
     def resolve_product(root, info, **kwargs):
         return get_object_or_404(Product, pk=kwargs.get("id"))
 
@@ -35,7 +35,7 @@ class ProductInput(graphene.InputObjectType):
 class CreateProduct(graphene.Mutation):
     class Arguments:
         product_input = ProductInput()
-    
+
     ok = graphene.Boolean(default_value=False)
     product = graphene.Field(ProductType)
 
@@ -48,7 +48,7 @@ class CreateProduct(graphene.Mutation):
             unit_price=product_input.unit_price,
             amount=product_input.amount,
             discount=product_input.discount,
-            total_price=product_input.total_price
+            total_price=product_input.total_price,
         )
         product.save()
         ok = True
@@ -58,7 +58,7 @@ class CreateProduct(graphene.Mutation):
 class DeleteProduct(graphene.Mutation):
     class Arguments:
         product_id = graphene.ID()
-    
+
     ok = graphene.Boolean(default_value=False)
     product = graphene.Field(ProductType)
 

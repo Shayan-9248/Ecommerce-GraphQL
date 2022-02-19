@@ -61,5 +61,4 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategroyAdmin(admin.ModelAdmin):
-    list_display = ('title', 'id')
-    
+    list_display = ("title", "id")

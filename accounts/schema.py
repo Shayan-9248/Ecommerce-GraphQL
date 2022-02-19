@@ -13,7 +13,7 @@ class UserType(graphene_django.DjangoObjectType):
     class Meta:
         model = User
         fields = ("username", "email", "password")
-    
+
 
 class UserQuery(graphene.ObjectType):
     user = graphene.Field(UserType, id=graphene.ID())
@@ -21,10 +21,10 @@ class UserQuery(graphene.ObjectType):
 
     def resolve_user(root, info, **kwargs):
         return get_object_or_404(User, pk=kwargs.get("id"))
-    
+
     @staff_member_required
     def resolve_users(root, info, *kwargs):
-        return User.objects.all()    
+        return User.objects.all()
 
 
 class UserInput(graphene.InputObjectType):
@@ -36,7 +36,7 @@ class UserInput(graphene.InputObjectType):
 class CreateUser(graphene.Mutation):
     class Arguments:
         user_input = UserInput(required=True)
-    
+
     ok = graphene.Boolean(default_value=False)
     user = graphene.Field(UserType)
 
@@ -44,7 +44,7 @@ class CreateUser(graphene.Mutation):
         user = User(
             username=user_input.username,
             email=user_input.email,
-            password=user_input.password
+            password=user_input.password,
         )
         user.save()
         ok = True

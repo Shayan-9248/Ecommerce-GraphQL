@@ -39,8 +39,9 @@ class Product(TimeStamp):
     unit_price = models.DecimalField(max_digits=6, decimal_places=2)
     amount = models.PositiveIntegerField(null=True, blank=True)
     discount = models.PositiveIntegerField(null=True, blank=True)
-    total_price = models.DecimalField(max_digits=6, decimal_places=2, 
-     null=True, blank=True)
+    total_price = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
+    )
     image = models.ImageField(default="1.jpg")
     sell = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(
@@ -58,9 +59,7 @@ class Product(TimeStamp):
 
     class Meta(TimeStamp.Meta):
         ordering = ("-created",)
-        indexes = [
-            models.Index(fields=['title'])
-        ]
+        indexes = [models.Index(fields=["title"])]
 
     def __str__(self):
         return self.title
@@ -81,4 +80,3 @@ class Product(TimeStamp):
             total = (self.discount * self.unit_price) / 100
             return int(self.unit_price - total)
         return self.total_price
-        
