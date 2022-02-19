@@ -2,13 +2,10 @@
 from django.contrib import admin
 
 # Local imports
-from .models import Cart, CartItem
+from .models import Cart
 
 
-@admin.register(CartItem)
+@admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ("cart", "product", "quantity", "id")
-    search_fields = ("cart", "product")
-
-
-admin.site.register(Cart)
+    list_display = ("__str__", "product", "quantity", "id")
+    search_fields = ("product",)

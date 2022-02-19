@@ -3,26 +3,19 @@ from uuid import uuid4
 
 # Core django imports
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Local imports
 from products.models import Product
 
+User = get_user_model()
+
 
 class Cart(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return str(self.id)
-
-
-class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     quantity = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return f"{self.product.title}"
-
-    class Meta:
-        unique_together = [["cart", "product"]]
+        return f"{self.user.username}"
