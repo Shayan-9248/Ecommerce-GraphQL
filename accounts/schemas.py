@@ -11,7 +11,7 @@ User = get_user_model()
 class UserType(graphene_django.DjangoObjectType):
     class Meta:
         model = User
-        fields = ("username", "email" "password")
+        fields = ("username", "email", "password")
     
 
 class UserQuery(graphene.ObjectType):
@@ -29,7 +29,7 @@ class UserInput(graphene.InputObjectType):
 
 class CreateUser(graphene.Mutation):
     class Arguments:
-        user = UserInput(required=True)
+        user_input = UserInput(required=True)
     
     ok = graphene.Boolean(default_value=False)
     user = graphene.Field(UserType)
@@ -45,7 +45,7 @@ class CreateUser(graphene.Mutation):
         return CreateUser(user=user, ok=ok)
 
 
-class Mutation(graphene.Mutation):
+class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
