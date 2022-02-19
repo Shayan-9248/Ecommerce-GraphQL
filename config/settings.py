@@ -131,6 +131,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Graphene
 GRAPHENE = {
     "SCHEMA": "config.schema.schema"
 }
+
+# Custom user model
+AUTH_USER_MODEL = "accounts.User"
