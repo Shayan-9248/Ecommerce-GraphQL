@@ -3,6 +3,7 @@ import graphene
 from accounts import schema as account_schema
 from products import schema as product_schema
 from carts import schema as cart_schema
+from orders import schema as order_schema
 
 
 class Query(account_schema.UserQuery, product_schema.Query, graphene.ObjectType):
@@ -13,6 +14,7 @@ class Mutation(
     account_schema.Mutation,
     product_schema.Mutation,
     cart_schema.Mutation,
+    order_schema.Mutation,
     graphene.ObjectType,
 ):
     pass
